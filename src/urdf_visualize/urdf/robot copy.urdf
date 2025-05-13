@@ -1,4 +1,17 @@
 <robot name="onshape">
+
+<link name="world"/>
+
+  <!-- Fixed joint applying rotation from Unity Y-up to ROS Z-up -->
+  <joint name="world_to_base" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
+  </joint>
+
+  <!-- Original base link -->
+<link name="base_link"/>
+
 <link name="compact_excavator_cabin_body_cmpl">
 <visual>
 <origin xyz="0.15929227608280682738 -0.2512819772778476235 0.33139999999999991687" rpy="0 0 0" />
@@ -21,6 +34,13 @@
 <inertia ixx="3175.1655302028038932" ixy="-269.97312494382822479"  ixz="167.61780128589879268" iyy="2627.6328649732372469" iyz="-193.85494965010886403" izz="3742.616047274826542" />
 </inertial>
 </link>
+
+<joint name="base_to_cabin" type="fixed">
+<origin xyz="0.15929227608280682738 -0.2512819772778476235 0.33139999999999991687" rpy="0 0 0" />
+<parent link="base_link" />
+<child link="compact_excavator_cabin_body_cmpl" />
+<axis xyz="0 0 1"/>
+</joint>
 
 <link name="compact_excavator_turret_cabin_roller">
 <visual>
