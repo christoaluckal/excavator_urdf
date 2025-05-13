@@ -6,7 +6,7 @@
   <joint name="world_to_base" type="fixed">
     <parent link="world"/>
     <child link="base_link"/>
-    <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
+    <origin xyz="10 10 0" rpy="0 0 0"/>
   </joint>
 
   <!-- Original base link -->
@@ -143,6 +143,7 @@
 </inertial>
 </link>
 
+
 <joint name="right_sprocket_wheel" type="continuous">
 <origin xyz="0.5739999999999999547 -0.80000000000000004441 -0.2750000000000000222" rpy="1.570796326794896558 -1.2984776443375001254 -1.5707963267948972241" />
 <parent link="compact_excavator_frame_body" />
@@ -244,7 +245,8 @@
 <parent link="compact_excavator_frame_body" />
 <child link="push_blade_bucket" />
 <axis xyz="0 0 1"/>
-<limit effort="1" velocity="20" />
+<!-- TODO Figure this out -->
+<limit effort="1" velocity="20" lower="0.2" upper="0" />
 <joint_properties friction="0.0"/>
 </joint>
 
@@ -405,6 +407,7 @@
 <limit effort="1" velocity="20" lower="-0.5" upper="1.57"/>
 <joint_properties friction="0.0"/>
 </joint>
+
 
 <joint name="lower_arm" type="revolute">
 <origin xyz="0.079999999999996157518 0.074999999999997291056 -0.1500000000000039635" rpy="-1.570796326794896558 0.39285813115170314935 -1.5707963267949009989" />
