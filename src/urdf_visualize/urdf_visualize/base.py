@@ -1,30 +1,43 @@
-import rclpy
-from rclpy.node import Node
+import bpy
+import os
+import math
 
-from std_msgs.msg import Int16
+# === CONFIGURATION ===
+INPUT_FOLDER = "/home/christoa/Developer/moog/excavator_urdf/src/urdf_visualize/meshes"
+OUTPUT_FOLDER = "/home/christoa/Developer/moog/excavator_urdf/src/urdf_visualize/meshes"  # Can be same as input to overwrite
 
-class MinimalPublisher(Node):
-
-    def __init__(self):
-        super().__init__('base3')
-
-        self.declare_parameter('int_number', 5)
+Rotations = [90,0,0]
 
 
-        self.publisher_ = self.create_publisher(Int16, 'a', 10)
-        self.subscriber = self.create_subscription(Int16, 'b', self.callback, 10)
+# === CLEAR SCENE ===
+bpy.ops.object.select_all(action='SELECT')
+bpy.ops.object.delete(use_global=False)
 
-    def callback(self, msg):
-        pass
+# === PROCESS EACH STL FILE ===
+for filename in os.listdir(INPUT_FOLDER):
+    if filename.lower().endswith(".stl"):
+        filepath = os.path.join(INPUT_FOLDER, filename)
+        print(f"Processing: {filename}")
 
+        # Import STL
+        bpy.ops.import_mesh.stl(filepath=filepath)
+        obj = bpy.context.selected_objects[0]
 
-def main(args=None):
-    rclpy.init(args=args)
-    minimal_publisher = MinimalPublisher()
-    rclpy.spin(minimal_publisher)
-    minimal_publisher.destroy_node()
-    rclpy.shutdown()
+        # Rotate -90° around X
+        # obj.rotation_euler[0] = math.radians(ROTATE_X_DEGREES)
+        obj.rotation_euler[0] = math.radians(Rotations[0])
+        obj.rotation_euler[1] = math.radians(Rotations[1])
+        obj.rotation_euler[2] = math.radians(Rotations[2])
 
+        # Apply the rotation so it's baked into mesh
+        bpy.context.view_layer.objects.active = obj
+        bpy.ops.object.transform_apply(location=False, rotation=True, scale=False)
 
-if __name__ == '__main__':
-    main()
+        # Export to output folder
+        output_path = os.path.join(OUTPUT_FOLDER, filename)
+        bpy.ops.export_mesh.stl(filepath=output_path, use_selection=True)
+
+        # Clean up before next file
+        bpy.ops.object.delete()
+
+print("✅ All STL files processed.")
