@@ -1,18 +1,14 @@
 <robot name="onshape">
 
     <link name="world"/>
-    <joint name="world_to_base" type="fixed">
-        <parent link="world"/>
-        <child link="base_link"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-    </joint>
+
 
     <!-- Original base link -->
     <link name="base_link"/>
 
     <link name="cabin_base">
         <visual>
-            <origin xyz="0.15929227608280682738 -0.2512819772778476235 0.33139999999999991687" rpy="0 0 0" />
+            <origin xyz="0.15929227608280682738 -0.2512819772778476235 0.28139999999999991687" rpy="0 0 0" />
             <geometry>
                 <mesh filename="package://urdf_visualize/meshes/compact_excavator_cabin_body.stl"/>
             </geometry>
@@ -21,7 +17,7 @@
             </material>
         </visual>
         <collision>
-            <origin xyz="0.15929227608280682738 -0.2512819772778476235 0.33139999999999991687" rpy="0 0 0" />
+            <origin xyz="0.15929227608280682738 -0.2512819772778476235 0.28139999999999991687" rpy="0 0 0" />
             <geometry>
                 <mesh filename="package://urdf_visualize/meshes/compact_excavator_cabin_body.stl"/>
             </geometry>
@@ -33,14 +29,9 @@
         </inertial>
     </link>
 
-    <joint name="base_to_cabin" type="fixed">
-        <origin xyz="0.15929227608280682738 -0.2512819772778476235 0.33139999999999991687" rpy="0 0 0" />
-        <parent link="base_link" />
-        <child link="cabin_base" />
-        <axis xyz="0 0 1"/>
-    </joint>
+    
 
-    <link name="compact_excavator_turret_cabin_roller">
+    <!-- <link name="compact_excavator_turret_cabin_roller">
         <visual>
             <origin xyz="-0.25 -2.6186110041323504109e-15 0" rpy="-3.14 0 0" />
             <geometry>
@@ -61,7 +52,7 @@
             <mass value="72.827596459303620691" />
             <inertia ixx="1.099653317522871987" ixy="-2.7108603781094622134e-32"  ixz="-1.2447660391936814803e-72" iyy="1.0996533175228724311" iyz="2.9990054258902069892e-40" izz="2.1659744096152291348" />
         </inertial>
-    </link>
+    </link> -->
 
     <link name="turret_base">
         <visual>
@@ -109,14 +100,7 @@
         </inertial>
     </link>
 
-    <joint name="left_spinning_wheel" type="continuous">
-        <origin xyz="-0.5739999999999999547 -0.80000000000000015543 -0.2750000000000000222" rpy="1.570796326794896558 -0.3547477759675310427 1.5707963267948976682" />
-        <parent link="turret_base" />
-        <child link="left_spinning_wheel_link" />
-        <axis xyz="0 0 1"/>
-        <limit effort="1" velocity="20" />
-        <joint_properties friction="0.0"/>
-    </joint>
+    
 
     <link name="right_spinning_wheel_link">
         <visual>
@@ -141,15 +125,7 @@
         </inertial>
     </link>
 
-
-    <joint name="right_spinning_wheel" type="continuous">
-        <origin xyz="0.5739999999999999547 -0.80000000000000004441 -0.2750000000000000222" rpy="1.570796326794896558 -1.2984776443375001254 -1.5707963267948972241" />
-        <parent link="turret_base" />
-        <child link="right_spinning_wheel_link" />
-        <axis xyz="0 0 1"/>
-        <limit effort="1" velocity="20" />
-        <joint_properties friction="0.0"/>
-    </joint>
+    
 
     <link name="left_front_wheel_link">
         <visual>
@@ -174,14 +150,7 @@
         </inertial>
     </link>
 
-    <joint name="left_passive_wheel" type="continuous">
-        <origin xyz="-0.61299999999999998934 0.80000000000000026645 -0.2750000000000000222" rpy="1.570796326794896558 -1.0222876983448163646 -1.5707963267948941155" />
-        <parent link="turret_base" />
-        <child link="left_front_wheel_link" />
-        <axis xyz="0 0 1"/>
-        <limit effort="1" velocity="20" />
-        <joint_properties friction="0.0"/>
-    </joint>
+    
 
     <link name="right_front_wheel_link">
         <visual>
@@ -206,15 +175,6 @@
         </inertial>
     </link>
 
-    <joint name="right_passive_wheel" type="continuous">
-        <origin xyz="0.54800000000000004263 0.80000000000000015543 -0.27499999999999996669" rpy="1.57079632679489678 -1.1102232252180887662e-16 -1.5707963267948976682" />
-        <parent link="turret_base" />
-        <child link="right_front_wheel_link" />
-        <axis xyz="0 0 1"/>
-        <limit effort="1" velocity="20" />
-        <joint_properties friction="0.0"/>
-    </joint>
-
     <link name="push_blade_bucket">
         <visual>
             <origin xyz="-0.021564399534920564161 1.0799900599760599018 -0.25500000000000000444" rpy="-3.14 -1.57 0" />
@@ -237,34 +197,6 @@
             <inertia ixx="31.881096131626421197" ixy="0.91247385061899932701"  ixz="-1.6212090668492922982e-05" iyy="21.196220352263214437" iyz="4.9900082202379639952e-06" izz="13.169227707961496776" />
         </inertial>
     </link>
-
-    <joint name="plow_to_base" type="revolute">
-        <origin xyz="-0.25500000000000005995 0.4880000000000002669 -0.20500000000000001554" rpy="1.570796326794896558 -1.3195606112546109934 -1.57079632679489678" />
-        <parent link="turret_base" />
-        <child link="push_blade_bucket" />
-        <axis xyz="0 0 1"/>
-        <!-- TODO Figure this out -->
-        <limit effort="1" velocity="20" lower="0.2" upper="0" />
-        <joint_properties friction="0.0"/>
-    </joint>
-
-    <joint name="slew" type="continuous">
-        <origin xyz="-0.25 -2.6052883279480892481e-15 -0.050000000000000002776" rpy="-5.5511151231419568159e-17 -1.1102230246202266528e-16 0" />
-        <parent link="compact_excavator_turret_cabin_roller" />
-        <child link="turret_base" />
-        <axis xyz="0 0 1"/>
-        <limit effort="1" velocity="20" />
-        <joint_properties friction="0.0"/>
-    </joint>
-
-    <joint name="fixed_base" type="fixed">
-        <origin xyz="-0.25 -2.394831672112794725e-15 0.049999999999999988898" rpy="-6.5400986663891116335e-25 -1.0029564927205460558e-23 3.1415926535897926719" />
-        <parent link="cabin_base" />
-        <child link="compact_excavator_turret_cabin_roller" />
-        <axis xyz="0 0 1"/>
-        <limit effort="1" velocity="20" />
-        <joint_properties friction="0.0"/>
-    </joint>
 
     <link name="swing_base">
         <visual>
@@ -389,6 +321,107 @@
             <inertia ixx="14.03567187790122972" ixy="-1.6652440163767181502"  ixz="0.0020270508814650067472" iyy="6.8549730106956987541" iyz="0.0040437120644442776929" izz="11.610921270718170817" />
         </inertial>
     </link>
+
+    <joint name="world_to_base_link" type="fixed">
+        <parent link="world"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+
+    <joint name="base_to_turret" type="fixed">
+        <origin xyz="0 0 0.45" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="turret_base" />
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <!-- <joint name="base_to_cabin" type="fixed">
+        <origin xyz="0.15929227608280682738 -0.2512819772778476235 0.33139999999999991687" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="cabin_base" />
+        <axis xyz="0 0 1"/>
+    </joint> -->
+
+    <!-- <joint name="turret_to_cabin" type="continuous">
+        <origin xyz="0 0 0" rpy="0 0 -3.142" />
+        <parent link="turret_base" />
+        <child link="cabin_base" />
+        <axis xyz="0 0 1"/>
+        <limit effort="1" velocity="20" />
+    </joint> -->
+
+    <joint name="left_spinning_wheel" type="continuous">
+        <origin xyz="-0.5739999999999999547 -0.80000000000000015543 -0.2750000000000000222" rpy="1.570796326794896558 -0.3547477759675310427 1.5707963267948976682" />
+        <parent link="turret_base" />
+        <child link="left_spinning_wheel_link" />
+        <axis xyz="0 0 1"/>
+        <limit effort="1" velocity="20" />
+        <joint_properties friction="0.0"/>
+    </joint>
+
+    <joint name="right_spinning_wheel" type="continuous">
+        <origin xyz="0.5739999999999999547 -0.80000000000000004441 -0.2750000000000000222" rpy="1.570796326794896558 -1.2984776443375001254 -1.5707963267948972241" />
+        <parent link="turret_base" />
+        <child link="right_spinning_wheel_link" />
+        <axis xyz="0 0 1"/>
+        <limit effort="1" velocity="20" />
+        <joint_properties friction="0.0"/>
+    </joint>
+
+    <joint name="left_passive_wheel" type="continuous">
+        <origin xyz="-0.61299999999999998934 0.80000000000000026645 -0.2750000000000000222" rpy="1.570796326794896558 -1.0222876983448163646 -1.5707963267948941155" />
+        <parent link="turret_base" />
+        <child link="left_front_wheel_link" />
+        <axis xyz="0 0 1"/>
+        <limit effort="1" velocity="20" />
+        <joint_properties friction="0.0"/>
+    </joint>
+
+    <joint name="right_passive_wheel" type="continuous">
+        <origin xyz="0.54800000000000004263 0.80000000000000015543 -0.27499999999999996669" rpy="1.57079632679489678 -1.1102232252180887662e-16 -1.5707963267948976682" />
+        <parent link="turret_base" />
+        <child link="right_front_wheel_link" />
+        <axis xyz="0 0 1"/>
+        <limit effort="1" velocity="20" />
+        <joint_properties friction="0.0"/>
+    </joint>
+
+    <joint name="plow_to_base" type="revolute">
+        <origin xyz="-0.25500000000000005995 0.4880000000000002669 -0.20500000000000001554" rpy="1.570796326794896558 -1.3195606112546109934 -1.57079632679489678" />
+        <parent link="turret_base" />
+        <child link="push_blade_bucket" />
+        <axis xyz="0 0 1"/>
+        <limit effort="1" velocity="20" lower="0.2" upper="0" />
+        <joint_properties friction="0.0"/>
+    </joint>
+
+    <!-- <joint name="slew" type="continuous">
+        <origin xyz="-0.25 -2.6052883279480892481e-15 -0.050000000000000002776" rpy="-5.5511151231419568159e-17 -1.1102230246202266528e-16 0" />
+        <parent link="compact_excavator_turret_cabin_roller" />
+        <child link="turret_base" />
+        <axis xyz="0 0 1"/>
+        <limit effort="1" velocity="20" />
+        <joint_properties friction="0.0"/>
+    </joint> -->
+
+    <joint name="slew" type="continuous">
+        <origin xyz="0 0 0" rpy="-5.5511151231419568159e-17 -1.1102230246202266528e-16 -3.1415" />
+        <parent link="turret_base" />
+        <child link="cabin_base" />
+        <axis xyz="0 0 1"/>
+        <limit effort="1" velocity="20" />
+        <joint_properties friction="0.0"/>
+    </joint>
+
+    <!-- <joint name="fixed_base" type="fixed">
+        <origin xyz="-0.25 -2.394831672112794725e-15 0.049999999999999988898" rpy="-6.5400986663891116335e-25 -1.0029564927205460558e-23 3.1415926535897926719" />
+        <parent link="cabin_base" />
+        <child link="compact_excavator_turret_cabin_roller" />
+        <axis xyz="0 0 1"/>
+        <limit effort="1" velocity="20" />
+        <joint_properties friction="0.0"/>
+    </joint> -->
 
     <joint name="bucket_to_arm" type="revolute">
         <origin xyz="0.12000000000000410338 -1.5403327562575612752 9.4368957093138305936e-16" rpy="3.1415926535897917837 1.8859935444767496044e-16 -1.5963552846072552871" />
