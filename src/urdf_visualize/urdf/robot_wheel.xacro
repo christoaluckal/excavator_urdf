@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="onshape">
-    <link name="world"/>
+    <!-- <link name="world"/> -->
 
     <xacro:property name="mesh_root" value="package://urdf_visualize/meshes"/>
 
@@ -481,11 +481,11 @@
     </joint>
 
 
-    <joint name="world_to_base_link" type="fixed">
+    <!-- <joint name="world_to_base_link" type="fixed">
         <parent link="world"/>
         <child link="base_link"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-    </joint>
+    </joint> -->
 
 
     <joint name="base_to_turret" type="fixed">
@@ -618,6 +618,8 @@
         <limit effort="1" velocity="20" lower="-1" upper="1.57" />
         <joint_properties friction="0.0"/>
     </joint>
+
+    <gravity>1</gravity>
 
     <ros2_control name="GazeboSystem" type="system">
         <hardware>

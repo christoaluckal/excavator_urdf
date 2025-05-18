@@ -4,7 +4,7 @@
 <!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
 <!-- =================================================================================== -->
 <robot name="onshape">
-  <link name="world"/>
+  <!-- <link name="world"/> -->
   <!-- Original base link -->
   <link name="base_link"/>
   <link name="cabin_base">
@@ -422,11 +422,11 @@
     <limit effort="1" velocity="20"/>
     <joint_properties friction="0.0"/>
   </joint>
-  <joint name="world_to_base_link" type="fixed">
-    <parent link="world"/>
-    <child link="base_link"/>
-    <origin rpy="0 0 0" xyz="0 0 0"/>
-  </joint>
+  <!-- <joint name="world_to_base_link" type="fixed">
+        <parent link="world"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint> -->
   <joint name="base_to_turret" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0.55"/>
     <parent link="base_link"/>
@@ -542,6 +542,7 @@
     <limit effort="1" lower="-1" upper="1.57" velocity="20"/>
     <joint_properties friction="0.0"/>
   </joint>
+  <gravity>1</gravity>
   <ros2_control name="GazeboSystem" type="system">
     <hardware>
       <plugin>gazebo_ros2_control/GazeboSystem</plugin>
@@ -550,7 +551,7 @@
   </ros2_control>
   <gazebo>
     <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-      <parameters>/home/christoa/Developer/moog/excavator_urdf/install/urdf_visualize/share/urdf_visualize/config/params.yaml</parameters>
+      <parameters>/home/christoa/Developer/moog/excavator_urdf/install/urdf_visualize/share/urdf_visualize/config/09a-minimal.yaml</parameters>
     </plugin>
   </gazebo>
 </robot>
